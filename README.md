@@ -5,3 +5,5 @@ This is a simple to-do list using react and localhost. You're able to see if an 
 Then install the packages and run the code locally with 'npm run dev'
 
 ![alt text](https://github.com/Vastagon/react-todo/blob/main/public/Library.png)
+
+![alt text](https://github.com/Vastagon/react-todo/blob/main/public/library2.png)
