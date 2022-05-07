@@ -11,8 +11,16 @@ import About from './components/About'
 const App = () => {
     const [showAddTask, setShowAddTask] = useState(false)
     const [tasks, setTasks] = useState([])
+    let dataURL
+    if(process.env.NODE_ENV === "production"){
+      dataURL = "https://vastagon.github.io/react-library/"
+    }else{
+      dataURL = "http://localhost:5000/"
+    }   
 
     useEffect(() =>{
+
+
       const getTasks = async () =>{
         const tasksFromServer = await fetchTasks()
         setTasks(tasksFromServer)
@@ -23,14 +31,14 @@ const App = () => {
 
     //Fetch tasks
     const fetchTasks = async () => {
-      const res = await fetch('http://localhost:5000/tasks')
+      const res = await fetch(`${dataURL}tasks`)
       const data = await res.json()
       
       return data
     }
 
     const fetchTask = async (id) => {
-      const res = await fetch(`http://localhost:5000/tasks/${id}`)
+      const res = await fetch(`${dataURL}tasks/${id}`)
       const data = await res.json()
       
       return data
@@ -38,7 +46,7 @@ const App = () => {
 
     //Add Task
     const addTask = async (task) =>{
-      const res = await fetch('http://localhost:5000/tasks', {
+      const res = await fetch(`${dataURL}tasks`, {
         method:'POST',
         headers: {
           'Content-type': 'application/json'
@@ -53,7 +61,7 @@ const App = () => {
 
     //Delete tasks
     const deleteTask = async (id) =>{
-      await fetch(`http://localhost:5000/tasks/${id}`,{
+      await fetch(`${dataURL}tasks/${id}`,{
         method: 'DELETE'
       })
 
@@ -66,7 +74,7 @@ const App = () => {
       const updTask = {...taskToToggle, 
         reminder: !taskToToggle.reminder}
 
-        const res = await fetch(`http://localhost:5000/tasks/${id}`,{
+        const res = await fetch(`${dataURL}tasks/${id}`,{
           method: 'PUT',
           headers:{
             'Content-type': 'application/json'
